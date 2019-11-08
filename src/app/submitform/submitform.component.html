@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <title>Submit Form</title>
+</head>
+<body>
+  <div>
+    <form #userForm="ngForm" (ngSubmit) = "onSubmit(userForm)">
+
+      {{userForm.value | json}}
+        <table>
+            <tr>
+              <td>First Name:</td>
+              <td>
+                <input type="text"  name = "firstname" ngModel required />
+              </td>
+            </tr>
+            <tr>
+                <td>Last Name:</td>
+                <td>
+                  <input type="text" name = "lastname" ngModel required />
+                </td>
+              </tr>
+            <tr>
+              <td>E-mail address</td>
+              <td><input type="email" name = "email" ngModel required /></td>
+            </tr>
+            <tr>
+                <td>Position:</td>
+                <td>
+                  <select name="role" ngModel required>
+                  <option *ngFor="let position of positions">{{position}}</option>
+                  </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Resume:</td>
+                <td>
+                    <input type = "file" name = "resumefile" accept=".pdf,.doc,.docx" required/>
+                </td>
+            </tr>
+          </table>
+          <button (click)="onUpload()">Upload</button>
+          <P><button type="submit" [disabled]='userForm.invalid' value="submit" name="submit">Submit</button></P>
+    </form>
+    <p [hidden]='!userForm.invalid' style='color: red;'>Please Fill all the details</p>
+  </div>
+</body>
+</html>
