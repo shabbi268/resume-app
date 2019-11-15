@@ -9,6 +9,7 @@ const client = new Client({
 })
 
 console.log("start");
+
 client .connect()
 .then(() => console.log("Connecetd succesfully"))
 .then(() => client.query("DROP TABLE users"))
