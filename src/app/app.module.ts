@@ -7,6 +7,7 @@ import { SubmitFormComponent } from './submitform/submitform.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SubmituserService } from './submitform/submituser.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SubmituserService } from './submitform/submituser.service';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: [SubmituserService],
   bootstrap: [AppComponent]

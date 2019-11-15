@@ -1,12 +1,16 @@
 import { User } from '../user';
+import { HttpClient } from '@angular/common/http';
 
 export class SubmituserService {
-  userlist: User[] = [];
+  user1 = new User('Shabbi', 'Kesa', 'kesash@mail.uc.edu', 'A');
+  userlist: User[] = [this.user1];
+  constructor() {}
 
   getUsers() {
     return [...this.userlist];
   }
   addUser(user: User) {
     this.userlist.push(user);
+    return;
   }
 }

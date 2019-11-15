@@ -2,21 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { User } from '../user';
 import { SubmituserService } from '../submitform/submituser.service';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
   selector: 'app-submit-form',
-  templateUrl: './submitform.component.html'
-
-
+  templateUrl: './submitform.component.html',
+  styleUrls: ['./submitform.component.css']
 })
+
 export class SubmitFormComponent implements OnInit {
-  submituserservice: SubmituserService;
-  item = null;
   user: User[] = [];
   positions = ['A', 'B', 'C', 'D'];
-  onUpload() {
-    alert('Upload clicked');
+  constructor(public submituserservice: SubmituserService, private http: HttpClient) {
+
+  }
+  ngOnInit() {
+    this.user = this.submituserservice.getUsers();
   }
   onSubmit(userForm: NgForm) {
     alert('submit clicked');
@@ -27,14 +29,17 @@ export class SubmitFormComponent implements OnInit {
       position: userForm.value.position
     };
     this.submituserservice.addUser(user);
-    alert(this.submituserservice.userlist.length);
+    this.http.post('http://localhost:4000/api/submitform', user).subscribe((responsedata: any) => {
+    });
+    userForm.reset();
   }
-  constructor(submituserservice: SubmituserService) {
-    this.submituserservice = submituserservice;
+  onUpload() {
+    alert('Upload clicked');
   }
-  ngOnInit() {
-    this.user = this.submituserservice.getUsers();
-    alert('initial users in list: ' + this.user.length);
+  userList() {
+    this.http.get('http://localhost:4000/api/submitform').subscribe((responsedata: any) => {
+      console.log(responsedata);
+    });
   }
 }
 
