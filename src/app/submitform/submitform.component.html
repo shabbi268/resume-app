@@ -2,12 +2,13 @@
 <html lang="en" >
 <head>
   <title>Submit Form</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
   <div>
     <form #userForm="ngForm" (ngSubmit) = "onSubmit(userForm)">
-
-      {{userForm.value | json}}
         <table>
             <tr>
               <td>First Name:</td>
@@ -41,8 +42,11 @@
                 <td></td>
             </tr>
           </table>
+          <br>
           <button type="button" (click)="onUpload()">Upload</button><br>
+          <br>
           <button type="button" (click)="userList()">List</button><br>
+          <br>
           <P><button type="submit" [disabled]='userForm.invalid' value="submit" name="submit">Submit</button></P>
     </form>
     <p [hidden]='!userForm.invalid' style='color: red;'>Please Fill all the details</p>

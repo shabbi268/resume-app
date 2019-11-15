@@ -22,16 +22,6 @@ app.use((req, res, next) => {
 
 app.post("/api/submitform", (req, res, next) => {
   const userform = req.body;
-  const existname = '';
-  client.query('SELECT * FROM users WHERE firstname = $1', [userform.firstname], (err, result) => {(result.rows.firstname == existname)})
-  console.log(existname);
-  if (this.existname == userform.firstname) {
-    console.log(result);
-    console.log("User  there");
-    next();
-  }
-  else {
-  console.log("User note there");
   client.query('INSERT INTO users (firstname, lastname, email, position) VALUES ($1, $2, $3, $4)', [userform.firstname, userform.lastname, userform.email, userform.position],
    (err, result) => {
     if (err) {
@@ -40,7 +30,8 @@ app.post("/api/submitform", (req, res, next) => {
     else {
       res.status(200).send(result.rows);
     }
-  })}
+  })
+  return userform;
 });
 
 app.get("/api/submitform", (req, res, next) => {
