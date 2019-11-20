@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Manager } from '../manager';
+import { User } from '../user';
 import { Observable } from 'rxjs';
 
 
@@ -13,9 +14,11 @@ import { Observable } from 'rxjs';
 
 export class ManagerComponent implements OnInit {
   managerlist: Manager[] = [];
+  userslist: User[] = [];
   usernames: any = [];
   passwords: any = [];
   b = false;
+  loggedin = null;
   constructor(private http: HttpClient) {
     this.getJSON('http://localhost:4000/api/managerlist').subscribe(data => {
       for (const i of data) {
@@ -25,6 +28,11 @@ export class ManagerComponent implements OnInit {
     }
       console.log('Total number of managers is:' + this.managerlist.length);
   });
+    this.getJSON('http://localhost:4000/api/submitform').subscribe(data => {
+      for (const j of data) {
+        this.userslist.push(new User(j['firstname'],j['lastname'],j['email'],j['position']));
+      }
+    });
   }
 
   public getJSON(url): Observable<any> {
@@ -49,6 +57,7 @@ export class ManagerComponent implements OnInit {
         console.log('index of username in usernames list is ' + j);
         if (this.passwords[j] == mgr.password) {
           console.log('Valid login');
+          this.loggedin = true;
         } else {
           console.log('Invalid Credentials');
           loginform.reset();
@@ -64,5 +73,9 @@ export class ManagerComponent implements OnInit {
         this.managerlist.push(new Manager(i['username'], i['password']));
     }
   });
+  }
+
+  displayusers() {
+
   }
   }

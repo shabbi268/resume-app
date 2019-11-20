@@ -13,7 +13,7 @@ console.log("start");
 client .connect()
 .then(() => console.log("Connecetd succesfully"))
 .then(() => client.query("DROP TABLE users; DROP TABLE managers"))
-.then(() => console.log("Dropped users"))
+.then(() => console.log("Dropped users and managers"))
 .then(() => client.query("CREATE TABLE users (firstname character varying(50),lastname character varying(50),email character varying(50),position character varying(50))"))
 .then(() => client.query("CREATE TABLE managers (username character varying(50),password character varying(50))"))
 .then(() => console.log("Users and managers tables Created"))
@@ -25,8 +25,6 @@ client .connect()
 .then(() => console.log("1 User and 4 managers Inserted"))
 .catch(e => console.log(e))
 .finally()
-
-
 
 module.exports = client;
 

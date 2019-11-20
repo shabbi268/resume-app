@@ -7,7 +7,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-  <div>
+  <div [hidden] = loggedin >
     <form #loginform="ngForm" (ngSubmit) = "login(loginform)">
         <table>
             <tr>
@@ -30,5 +30,32 @@
     </form>
     <p [hidden]='!loginform.invalid' style='color: red;'>Please Fill username and password details</p>
   </div>
+  <div [hidden] = !loggedin>
+  <div>Here comes the display users component</div>
+  <table *ngFor = "let user of userslist" style="border: solid 2px red;" >
+    <tr>
+      <td>
+        <div>{{user.firstname}}</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div>{{user.lastname}}</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div>{{user.email}}</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div>{{user.position}}</div>
+      </td>
+    </tr>
+  </table>
+  <br>
+  </div>
+  <app-displayusers *ngIf= !loggedin></app-displayusers>
 </body>
 </html>
