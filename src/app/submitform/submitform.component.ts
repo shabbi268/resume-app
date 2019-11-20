@@ -30,6 +30,7 @@ export class SubmitFormComponent implements OnInit {
     };
     this.submituserservice.addUser(user);
     this.http.post('http://localhost:4000/api/submitform', user).subscribe((responsedata: any) => {
+      console.log(user);
     });
     userForm.reset();
   }

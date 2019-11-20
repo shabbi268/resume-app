@@ -1,3 +1,19 @@
 <h1>Resume Application</h1>
+<div>
+  <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" >Resume Application</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a routerLink = "" routerLinkActive="active" >Home</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a  routerLink = "/submitform" routerLinkActive="active" ><span class="glyphicon glyphicon-log-in"></span>Submit Form</a></li>
+          <li><a  routerLink = "/managerlogin" routerLinkActive="active" ><span class="glyphicon glyphicon-log-in"></span>Manager Login</a></li>
+        </ul>
+      </div>
+    </nav>
+</div>
 
-<app-submit-form></app-submit-form>
+<router-outlet></router-outlet>

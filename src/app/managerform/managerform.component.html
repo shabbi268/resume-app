@@ -1,7 +1,34 @@
-<p>
-        {{newcomponent}}
-     </p>
-     
-     <p>
-        new-cmp works!
-     </p>
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <title>Submit Form</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div>
+    <form #loginform="ngForm" (ngSubmit) = "login(loginform)">
+        <table>
+            <tr>
+              <td>Username:</td>
+              <td>
+                <input type="text"  name = "username" placeholder="Username" ngModel required />
+              </td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td>
+                  <input type="password" name = "password" placeholder="password" ngModel required />
+                </td>
+              </tr>
+          </table>
+          <br>
+          <P><button type="submit" [disabled]='loginform.invalid' value="submit" name="submit">Login</button></P>
+
+          <br>
+    </form>
+    <p [hidden]='!loginform.invalid' style='color: red;'>Please Fill username and password details</p>
+  </div>
+</body>
+</html>

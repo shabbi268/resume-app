@@ -43,5 +43,15 @@ app.get("/api/submitform", (req, res, next) => {
     })
   });
 
+  app.get("/api/managerlist", (req, res, next) => {
+    client.query('SELECT * FROM managers', (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      res.status(200).send(result.rows);
+    })
+  });
+
+
 module.exports = app;
 
