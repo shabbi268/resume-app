@@ -50,6 +50,31 @@
           <P><button type="submit" [disabled]='userForm.invalid' value="submit" name="submit">Submit</button></P>
     </form>
     <p [hidden]='!userForm.invalid' style='color: red;'>Please Fill all the details</p>
+
+    <div [hidden] = '!list'>
+      <table *ngFor = "let user of userslist">
+        <tr>
+          <td>
+            <div>{{user.firstname}}</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div>{{user.lastname}}</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div>{{user.email}}</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div>{{user.position}}</div>
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
 </body>
 </html>

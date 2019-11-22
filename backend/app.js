@@ -34,6 +34,23 @@ app.post("/api/submitform", (req, res, next) => {
   return userform;
 });
 
+app.post("/api/managerlist", (req, res, next) => {
+  const mgr = req.body;
+  console.log('in app.js managerlist app.post');
+  client.query('SELECT * FROM managers WHERE username = $1 and password =$2',[mgr.username, mgr.password],
+   (err, result) => {
+    if (err) {
+      console.log('error');
+      res.status(200).send(err.body);
+    }
+    else {
+      console.log(result.rows);
+      res.status(200).send(result.rows);
+    }
+  })
+  return mgr;
+});
+
 app.get("/api/submitform", (req, res, next) => {
     client.query('SELECT * FROM users', (err, result) => {
       if (err) {

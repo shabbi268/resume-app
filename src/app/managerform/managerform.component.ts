@@ -3,7 +3,8 @@ import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Manager } from '../manager';
 import { User } from '../user';
-import { Observable } from 'rxjs';
+import { Observable, Subscriber } from 'rxjs';
+import { ManagerformService } from './managerform.service';
 
 
 @Component({
@@ -13,13 +14,12 @@ import { Observable } from 'rxjs';
 })
 
 export class ManagerComponent implements OnInit {
-  managerlist: Manager[] = [];
+  managerlist: any = [];
   userslist: User[] = [];
   usernames: any = [];
   passwords: any = [];
-  b = false;
   loggedin = null;
-  constructor(private http: HttpClient) {
+  constructor(public managerformservice: ManagerformService, private http: HttpClient) {
     this.getJSON('http://localhost:4000/api/managerlist').subscribe(data => {
       for (const i of data) {
         this.managerlist.push(new Manager(i['username'], i['password']));
@@ -49,33 +49,15 @@ export class ManagerComponent implements OnInit {
       username: loginform.value.username,
       password: loginform.value.password
     };
-    for (const i of this.usernames) {
-      if (i == mgr.username) {
-        this.b = true;
-        console.log('username present');
-        const j = this.usernames.indexOf(i);
-        console.log('index of username in usernames list is ' + j);
-        if (this.passwords[j] == mgr.password) {
-          console.log('Valid login');
-          this.loggedin = true;
-        } else {
-          console.log('Invalid Credentials');
-          loginform.reset();
-   }}
-  }
-    if (!this.b) {
-    console.log('Invalid credentials');
-    }
+    this.managerformservice.loginCheck(mgr);
+    console.log(this.managerformservice.loggedmanager['username']);
+    return;
 }
    managerList() {
-    this.getJSON('http://localhost:4000/api/managerlist').subscribe(data => {
-      for (const i of data) {
-        this.managerlist.push(new Manager(i['username'], i['password']));
-    }
-  });
+    this.managerformservice.getManagers().subscribe((data: {}) => {
+      console.log(data);
+      this.managerlist = data;
+    });
   }
 
-  displayusers() {
-
-  }
   }

@@ -55,7 +55,22 @@
     </tr>
   </table>
   <br>
+</div>
+<div>
+  <div>
+    <table *ngFor = "let mgr of managerlist">
+      <tr>
+        <td>
+          <div>{{mgr.username}}</div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div>{{mgr.password}}</div>
+        </td>
+      </tr>
+    </table>
   </div>
-  <app-displayusers *ngIf= !loggedin></app-displayusers>
+</div>
 </body>
 </html>

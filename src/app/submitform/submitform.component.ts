@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { User } from '../user';
 import { SubmituserService } from '../submitform/submituser.service';
-import { HttpClient } from '@angular/common/http';
+
+
 
 
 @Component({
@@ -13,13 +14,16 @@ import { HttpClient } from '@angular/common/http';
 
 export class SubmitFormComponent implements OnInit {
   user: User[] = [];
+  userslist: any = [];
   positions = ['A', 'B', 'C', 'D'];
-  constructor(public submituserservice: SubmituserService, private http: HttpClient) {
+  list = false;
 
+
+  constructor(public submituserservice: SubmituserService) {
   }
   ngOnInit() {
-    this.user = this.submituserservice.getUsers();
   }
+
   onSubmit(userForm: NgForm) {
     alert('submit clicked');
     const user: User = {
@@ -29,17 +33,19 @@ export class SubmitFormComponent implements OnInit {
       position: userForm.value.position
     };
     this.submituserservice.addUser(user);
-    this.http.post('http://localhost:4000/api/submitform', user).subscribe((responsedata: any) => {
-      console.log(user);
-    });
     userForm.reset();
   }
+
   onUpload() {
     alert('Upload clicked');
   }
+
   userList() {
-    this.http.get('http://localhost:4000/api/submitform').subscribe((responsedata: any) => {
-      console.log(responsedata);
+    this.list = true;
+    this.userslist = [];
+    this.submituserservice.getUsers().subscribe((data: {}) => {
+      console.log(data);
+      this.userslist = data;
     });
   }
 }

@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SubmitFormComponent } from './submitform/submitform.component';
 import { ManagerComponent } from './managerform/managerform.component';
-import { DisplayusersComponent } from './displayusers/displayusers.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SubmituserService } from './submitform/submituser.service';
@@ -19,7 +18,6 @@ import { routingComponents } from './app-routing.module';
     AppComponent,
     SubmitFormComponent,
     ManagerComponent,
-    DisplayusersComponent,
     routingComponents,
   ],
   imports: [
