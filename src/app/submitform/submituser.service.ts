@@ -25,4 +25,12 @@ export class SubmituserService {
     });
     return;
   }
+
+  uploadFile(file: File) {
+    console.log('In file upload in service file-start');
+    console.log(file);
+    this.http.post('http://localhost:4000/api/uploadfile', file).subscribe((responsedata: any) => {
+    console.log('In file upload in service file-end');
+    });
+  }
 }

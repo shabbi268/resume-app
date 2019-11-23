@@ -18,6 +18,7 @@ export class ManagerComponent implements OnInit {
   userslist: User[] = [];
   usernames: any = [];
   passwords: any = [];
+  auth = null;
   loggedin = null;
   constructor(public managerformservice: ManagerformService, private http: HttpClient) {
     this.getJSON('http://localhost:4000/api/managerlist').subscribe(data => {
@@ -49,8 +50,13 @@ export class ManagerComponent implements OnInit {
       username: loginform.value.username,
       password: loginform.value.password
     };
-    this.managerformservice.loginCheck(mgr);
-    console.log(this.managerformservice.loggedmanager['username']);
+    this.auth = this.managerformservice.managerauth(this.managerlist, mgr);
+    if (this.auth) {
+      this.loggedin = true;
+    } else {
+      console.log('Invalid credentials');
+      loginform.reset();
+    }
     return;
 }
    managerList() {

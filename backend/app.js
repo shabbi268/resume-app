@@ -1,11 +1,36 @@
 const client = require('/Users/shabarishkesa/resume-app/test.js')
 const express = require('express');
 const bodyParser = require("body-parser");
-
+const knex = require('./knex');
 const app = express();
+const multer = require('multer');
+
+
+var store = multer.diskStorage({
+    destination : function(req, file, next) {
+      next(null, '../public');
+    },
+    filename: function (req, file, next) {
+      next(null, Date.now()+ '_'+file.fieldname);
+    }
+  });
+
+var upload = multer({storage: store}).single('file');
+
+const bookshelf = require('bookshelf')(knex)
+const User = bookshelf.model('User', {
+  tableName: 'users',
+})
+
+const Manager = bookshelf.model('Manager', {
+  tableName: 'managers',
+})
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -20,16 +45,13 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get('/', (req, res) => {
+  res.render('/Users/shabarishkesa/resume-app/src/index.html');
+});
+
 app.post("/api/submitform", (req, res, next) => {
   const userform = req.body;
-  client.query('INSERT INTO users (firstname, lastname, email, position) VALUES ($1, $2, $3, $4)', [userform.firstname, userform.lastname, userform.email, userform.position],
-   (err, result) => {
-    if (err) {
-      res.status(200).send(err.body);
-    }
-    else {
-      res.status(200).send(result.rows);
-    }
+  User.forge({ firstname: userform.firstname, lastname: userform.lastName, email: userform.email, position: userform.position}).save().then((User) => {
   })
   return userform;
 });
@@ -52,23 +74,25 @@ app.post("/api/managerlist", (req, res, next) => {
 });
 
 app.get("/api/submitform", (req, res, next) => {
-    client.query('SELECT * FROM users', (err, result) => {
-      if (err) {
-        console.log(err);
-      }
-      res.status(200).send(result.rows);
-    })
-  });
+  User.fetchAll().then((users) => {
+    res.status(200).send(users);
+  })
+});
 
   app.get("/api/managerlist", (req, res, next) => {
-    client.query('SELECT * FROM managers', (err, result) => {
-      if (err) {
-        console.log(err);
-      }
-      res.status(200).send(result.rows);
+    Manager.fetchAll().then((mgrs) => {
+      res.status(200).send(mgrs);
     })
   });
 
+  app.post("/api/uploadfile", function(req, res) {
+    upload(req, res, function(err) {
+      if (err) {
+        return res.status(501).json({error: err});
+      }
+      return res.json('uploaded sucess');
+    });
+  });
 
 module.exports = app;
 

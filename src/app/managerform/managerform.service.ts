@@ -15,19 +15,15 @@ export class ManagerformService {
   getManagers(): Observable<any> {
     return this.http.get('http://localhost:4000/api/managerlist');
   }
-  loginCheck(mgr: Manager) {
-    let result: Manager = null;
-    console.log('In login check service file');
-    this.http.post<Manager>('http://localhost:4000/api/managerlist', mgr).subscribe((responsedata: any) => {
-      result = responsedata[0];
-      console.log(result);
-      if (responsedata[0] == null) {
-        console.log('invalid login');
-      } else {
-        console.log('Manager found and logged in');
-        this.loggedmanager.push(responsedata);
-        console.log(this.loggedmanager[0]);
+
+  managerauth(mgr: Manager[], manager: Manager) {
+    for (const item of mgr) {
+      if (item['username'] == manager['username']) {
+        if (item['password'] == manager['password']) {
+          console.log('Manager authentication sucess');
+          return true;
+        }
       }
-    });
+    }
   }
 }

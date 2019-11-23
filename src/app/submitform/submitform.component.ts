@@ -34,10 +34,13 @@ export class SubmitFormComponent implements OnInit {
     };
     this.submituserservice.addUser(user);
     userForm.reset();
+    this.list = false;
   }
 
-  onUpload() {
+  onUpload(userForm: NgForm) {
     alert('Upload clicked');
+    console.log(userForm.value.file);
+    this.submituserservice.uploadFile(userForm.value.file);
   }
 
   userList() {

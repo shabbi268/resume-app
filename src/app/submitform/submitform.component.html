@@ -8,7 +8,7 @@
 </head>
 <body>
   <div>
-    <form #userForm="ngForm" (ngSubmit) = "onSubmit(userForm)">
+    <form #userForm="ngForm" (ngSubmit) = "onSubmit(userForm)" enctype="multipart/form-data" method = "post" >
         <table>
             <tr>
               <td>First Name:</td>
@@ -37,13 +37,13 @@
             <tr>
                 <td>Resume:</td>
                 <td>
-                    <input type = "file" name = "resumefile" accept=".pdf,.doc,.docx" required/>
+                    <input type = "file" name = "file" accept=".pdf,.doc,.docx" ngModel required/>
                 </td>
                 <td></td>
             </tr>
           </table>
           <br>
-          <button type="button" (click)="onUpload()">Upload</button><br>
+          <button type="button" (click)="onUpload(userForm)">Upload</button><br>
           <br>
           <button type="button" (click)="userList()">List</button><br>
           <br>
@@ -52,7 +52,7 @@
     <p [hidden]='!userForm.invalid' style='color: red;'>Please Fill all the details</p>
 
     <div [hidden] = '!list'>
-      <table *ngFor = "let user of userslist">
+      <table *ngFor = "let user of userslist"  style="border: solid 2px red;">
         <tr>
           <td>
             <div>{{user.firstname}}</div>
