@@ -25,7 +25,6 @@
           </table>
           <br>
           <P><button type="submit" [disabled]='loginform.invalid' value="submit" name="submit">Login</button></P>
-
           <br>
     </form>
     <p [hidden]='!loginform.invalid' style='color: red;'>Please Fill username and password details</p>
@@ -62,6 +61,11 @@
   <br>
   <button [hidden] = !deleted (click) = updateusers()>Update Users</button>
 </div>
+<ag-grid-angular
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    [modules="modules">
+</ag-grid-angular>
 <div>
   <div>
     <table *ngFor = "let mgr of managerlist">

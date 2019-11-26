@@ -11,7 +11,7 @@ import { SubmituserService } from './submitform/submituser.service';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { routingComponents } from './app-routing.module';
-
+import { AgGridModule, AgGridAngular } from '@ag-grid-community/angular';
 
 @NgModule({
   declarations: [
@@ -27,6 +27,8 @@ import { routingComponents } from './app-routing.module';
     BrowserAnimationsModule,
     HttpClientModule,
     RouterModule,
+    AgGridAngular,
+    AgGridModule.withComponents([])
   ],
   providers: [SubmituserService],
   bootstrap: [AppComponent],
