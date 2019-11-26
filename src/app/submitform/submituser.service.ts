@@ -25,7 +25,7 @@ export class SubmituserService {
     });
     return;
   }
-
+  // Below function is not used for upload
   uploadFile(file: File) {
     console.log('In file upload in service file-start');
     console.log(file);

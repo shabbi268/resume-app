@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { User } from '../user';
 import { SubmituserService } from '../submitform/submituser.service';
+import { HttpClient } from '@angular/common/http';
 
 
 
@@ -17,9 +18,9 @@ export class SubmitFormComponent implements OnInit {
   userslist: any = [];
   positions = ['A', 'B', 'C', 'D'];
   list = false;
+  resume;
 
-
-  constructor(public submituserservice: SubmituserService) {
+  constructor(public submituserservice: SubmituserService, public http: HttpClient) {
   }
   ngOnInit() {
   }
@@ -39,8 +40,19 @@ export class SubmitFormComponent implements OnInit {
 
   onUpload(userForm: NgForm) {
     alert('Upload clicked');
-    console.log(userForm.value.file);
-    this.submituserservice.uploadFile(userForm.value.file);
+    const formdata = new FormData();
+    formdata.append('file', this.resume);
+    this.http.post<any>('http://localhost:4000/api/uploadfile', formdata).subscribe(
+      (res) => console.log(res),
+      (err) => console.log(err)
+    );
+  }
+
+  selectfile(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.resume = file;
+    }
   }
 
   userList() {

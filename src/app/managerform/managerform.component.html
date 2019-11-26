@@ -53,8 +53,14 @@
         <div>{{user.position}}</div>
       </td>
     </tr>
+    <tr>
+      <td>
+        <button (click)="delete(user)">Delete Applicant</button>
+      </td>
+    </tr>
   </table>
   <br>
+  <button [hidden] = !deleted (click) = updateusers()>Update Users</button>
 </div>
 <div>
   <div>

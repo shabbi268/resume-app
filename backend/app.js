@@ -8,14 +8,14 @@ const multer = require('multer');
 
 var store = multer.diskStorage({
     destination : function(req, file, next) {
-      next(null, '../public');
+      next(null, './Resumes');
     },
     filename: function (req, file, next) {
-      next(null, Date.now()+ '_'+file.fieldname);
+      next(null, file.originalname);
     }
   });
 
-var upload = multer({storage: store}).single('file');
+var upload = multer({storage: store});
 
 const bookshelf = require('bookshelf')(knex)
 const User = bookshelf.model('User', {
@@ -40,18 +40,18 @@ app.use((req, res, next) => {
   );
   res.setHeader(
     "Access-Control-Allow-Methods",
-    "GET, POST, PATCH, DELETE, OPTIONS"
+    "GET, POST, PATCH, DELETE, OPTIONS, PUT"
   );
   next();
 });
 
 app.get('/', (req, res) => {
-  res.render('/Users/shabarishkesa/resume-app/src/index.html');
+  res.send('/Users/shabarishkesa/resume-app/src/index.html');
 });
 
 app.post("/api/submitform", (req, res, next) => {
   const userform = req.body;
-  User.forge({ firstname: userform.firstname, lastname: userform.lastName, email: userform.email, position: userform.position}).save().then((User) => {
+  User.forge({ firstname: userform.firstname, lastname: userform.lastname, email: userform.email, position: userform.position, show: 'S'}).save().then((User) => {
   })
   return userform;
 });
@@ -73,6 +73,16 @@ app.post("/api/managerlist", (req, res, next) => {
   return mgr;
 });
 
+app.put("/api/deleteuser", (req, res, next) =>{
+  const usr = req.body;
+  User
+    .where({firstname: usr.firstname, lastname: usr.lastname})
+    .save({show: 'NS'},{patch:true})
+    .then(function(x) {
+      console.log('User deleted sucessfully');
+    });
+});
+
 app.get("/api/submitform", (req, res, next) => {
   User.fetchAll().then((users) => {
     res.status(200).send(users);
@@ -85,13 +95,14 @@ app.get("/api/submitform", (req, res, next) => {
     })
   });
 
-  app.post("/api/uploadfile", function(req, res) {
-    upload(req, res, function(err) {
-      if (err) {
-        return res.status(501).json({error: err});
+  app.post("/api/uploadfile", upload.single("file"), (req, res, next) => {
+    const file = req.file
+    console.log(file.filename);
+      if (!file) {
+        console.log(err)
+        return res.status(422).send("An Error Occured");
       }
-      return res.json('uploaded sucess');
-    });
+      res.send(file)
   });
 
 module.exports = app;

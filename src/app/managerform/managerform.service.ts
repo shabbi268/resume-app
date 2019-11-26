@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Manager } from '../manager';
+import { User } from '../user';
 
 
 @Injectable({
@@ -25,5 +26,12 @@ export class ManagerformService {
         }
       }
     }
+  }
+  deleteuser(user: User) {
+    console.log('In mgr service ts deleteuser function');
+    console.log(user.email);
+    this.http.put('http://localhost:4000/api/deleteuser', user).subscribe((responsedata: any) => {
+      console.log('in mgr service ts put call');
+      });
   }
 }

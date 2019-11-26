@@ -20,6 +20,7 @@ export class ManagerComponent implements OnInit {
   passwords: any = [];
   auth = null;
   loggedin = null;
+  deleted = null;
   constructor(public managerformservice: ManagerformService, private http: HttpClient) {
     this.getJSON('http://localhost:4000/api/managerlist').subscribe(data => {
       for (const i of data) {
@@ -31,8 +32,10 @@ export class ManagerComponent implements OnInit {
   });
     this.getJSON('http://localhost:4000/api/submitform').subscribe(data => {
       for (const j of data) {
+        if (j['show'] == 'S') {
         this.userslist.push(new User(j['firstname'],j['lastname'],j['email'],j['position']));
       }
+    }
     });
   }
 
@@ -66,4 +69,20 @@ export class ManagerComponent implements OnInit {
     });
   }
 
-  }
+    delete(user: User) {
+      console.log('In mgr cmpt ts delete function');
+      this.managerformservice.deleteuser(user);
+      this.deleted = true;
+    }
+
+    updateusers() {
+      this.userslist = [];
+      this.getJSON('http://localhost:4000/api/submitform').subscribe(data => {
+      for (const j of data) {
+        if (j['show'] == 'S') {
+        this.userslist.push(new User(j['firstname'],j['lastname'],j['email'],j['position']));
+      }
+    }
+    });
+    }
+}
