@@ -9,7 +9,6 @@ import { User } from '../user';
   providedIn: 'root'
 })
 export class ManagerformService {
-  loggedmanager: Manager[] = [];
   constructor(private http: HttpClient) {}
 
 
@@ -28,10 +27,9 @@ export class ManagerformService {
     }
   }
   deleteuser(user: User) {
-    console.log('In mgr service ts deleteuser function');
     console.log(user.email);
     this.http.put('http://localhost:4000/api/deleteuser', user).subscribe((responsedata: any) => {
       console.log('in mgr service ts put call');
       });
-  }
+    }
 }

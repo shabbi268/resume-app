@@ -7,7 +7,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-  <div [hidden] = loggedin >
+  <div [hidden] = loggedin>
     <form #loginform="ngForm" (ngSubmit) = "login(loginform)">
         <table>
             <tr>
@@ -29,9 +29,23 @@
     </form>
     <p [hidden]='!loginform.invalid' style='color: red;'>Please Fill username and password details</p>
   </div>
-  <div [hidden] = !loggedin>
+  <app-display></app-display>
+
+  <div [hidden] = loggedin>
   <div>Here comes the display users component</div>
-  <table *ngFor = "let user of userslist" style="border: solid 2px red;" >
+  <div>
+      <ejs-grid [dataSource]='user' [allowSorting]="true" allowPaging='true' allowDeleting = "true" [enableHover]="false" [allowSelection]="true" [selectionSettings]="selectOptions"
+      [editSettings]='editSettings' [toolbar]='toolbar'>
+          <e-columns>
+              <!-- <e-column type='checkbox' width='50'></e-column> -->
+              <e-column field='firstname' headerText='First Name'></e-column>
+              <e-column field='lastname' headerText='Last Name' ></e-column>
+              <e-column field='email' headerText='Email ID'  format='C2' ></e-column>
+              <e-column field='position' headerText='Position Applied'></e-column>
+          </e-columns>
+      </ejs-grid>
+  </div>
+  <table *ngFor = "let user of userslist">
     <tr>
       <td>
         <div>{{user.firstname}}</div>
@@ -42,7 +56,7 @@
         <div>{{user.lastname}}</div>
       </td>
     </tr>
-    <tr>
+    <!-- <tr>
       <td>
         <div>{{user.email}}</div>
       </td>
@@ -51,7 +65,7 @@
       <td>
         <div>{{user.position}}</div>
       </td>
-    </tr>
+    </tr> -->
     <tr>
       <td>
         <button (click)="delete(user)">Delete Applicant</button>
@@ -59,28 +73,6 @@
     </tr>
   </table>
   <br>
-  <button [hidden] = !deleted (click) = updateusers()>Update Users</button>
-</div>
-<ag-grid-angular
-    [rowData]="rowData"
-    [columnDefs]="columnDefs"
-    [modules="modules">
-</ag-grid-angular>
-<div>
-  <div>
-    <table *ngFor = "let mgr of managerlist">
-      <tr>
-        <td>
-          <div>{{mgr.username}}</div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div>{{mgr.password}}</div>
-        </td>
-      </tr>
-    </table>
-  </div>
 </div>
 </body>
 </html>

@@ -11,7 +11,10 @@ import { SubmituserService } from './submitform/submituser.service';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { routingComponents } from './app-routing.module';
-import { AgGridModule, AgGridAngular } from '@ag-grid-community/angular';
+import { GridModule, PageService, SortService, FilterService, GroupService, EditService } from '@syncfusion/ej2-angular-grids';
+import { DataTablesModule } from 'angular-datatables';
+import { DisplayComponent } from './display/display.component';
+
 
 @NgModule({
   declarations: [
@@ -19,6 +22,7 @@ import { AgGridModule, AgGridAngular } from '@ag-grid-community/angular';
     SubmitFormComponent,
     ManagerComponent,
     routingComponents,
+    DisplayComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,10 +31,13 @@ import { AgGridModule, AgGridAngular } from '@ag-grid-community/angular';
     BrowserAnimationsModule,
     HttpClientModule,
     RouterModule,
-    AgGridAngular,
-    AgGridModule.withComponents([])
+    GridModule,
+    DataTablesModule,
   ],
-  providers: [SubmituserService],
+  providers: [SubmituserService, PageService,
+    SortService,
+    FilterService,
+    GroupService, EditService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

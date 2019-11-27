@@ -1,28 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { SelectionService, EditService } from '@syncfusion/ej2-angular-grids';
 import { User } from './user';
-import {AllCommunityModules} from '@ag-grid-community/all-modules';
 
-import '@ag-grid-community/all-modules/dist/styles/ag-grid.css';
-import '@ag-grid-community/all-modules/dist/styles/ag-theme-balham.css';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [SelectionService, EditService]
 })
-export class AppComponent {
-  title = 'resume-app';
-  columnDefs = [
-    {field: 'make' },
-    {field: 'model' },
-    {field: 'price'}
-];
+export class AppComponent implements OnInit {
 
-rowData = [
-    { make: 'Toyota', model: 'Celica', price: 35000 },
-    { make: 'Ford', model: 'Mondeo', price: 32000 },
-    { make: 'Porsche', model: 'Boxter', price: 72000 }
-];
-
-modules = AllCommunityModules;
+  public ngOnInit() {
+  }
 }
