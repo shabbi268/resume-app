@@ -13,7 +13,6 @@ import { RouterModule } from '@angular/router';
 import { routingComponents } from './app-routing.module';
 import { GridModule, PageService, SortService, FilterService, GroupService, EditService } from '@syncfusion/ej2-angular-grids';
 import { DataTablesModule } from 'angular-datatables';
-import { DisplayComponent } from './display/display.component';
 
 
 @NgModule({
@@ -22,7 +21,6 @@ import { DisplayComponent } from './display/display.component';
     SubmitFormComponent,
     ManagerComponent,
     routingComponents,
-    DisplayComponent,
   ],
   imports: [
     BrowserModule,

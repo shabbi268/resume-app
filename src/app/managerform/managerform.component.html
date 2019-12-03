@@ -7,9 +7,9 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-  <div [hidden] = loggedin>
-    <form #loginform="ngForm" (ngSubmit) = "login(loginform)">
-        <table>
+  <div [hidden] = loggedin style = "text-align: center;">
+    <form #loginform="ngForm" (ngSubmit) = "login(loginform)" >
+        <table style="margin-left:auto;margin-right:auto;">
             <tr>
               <td>Username:</td>
               <td>
@@ -29,23 +29,25 @@
     </form>
     <p [hidden]='!loginform.invalid' style='color: red;'>Please Fill username and password details</p>
   </div>
-  <app-display></app-display>
 
-  <div [hidden] = loggedin>
+
+  <div [hidden] = !loggedin>
   <div>Here comes the display users component</div>
   <div>
-      <ejs-grid [dataSource]='user' [allowSorting]="true" allowPaging='true' allowDeleting = "true" [enableHover]="false" [allowSelection]="true" [selectionSettings]="selectOptions"
-      [editSettings]='editSettings' [toolbar]='toolbar'>
+      <!-- <div style = "text-align: center;"><button ej-button class='e-flat' (click)='deletegrid()'> Delete </button></div><br> -->
+      <ejs-grid #grid [dataSource]='user' [allowSorting]="true" allowPaging='true'  [enableHover]="false"
+       [toolbar]='toolbarOptions' >
           <e-columns>
-              <!-- <e-column type='checkbox' width='50'></e-column> -->
+              <e-column type='checkbox' width='50'></e-column>
               <e-column field='firstname' headerText='First Name'></e-column>
               <e-column field='lastname' headerText='Last Name' ></e-column>
               <e-column field='email' headerText='Email ID'  format='C2' ></e-column>
               <e-column field='position' headerText='Position Applied'></e-column>
           </e-columns>
       </ejs-grid>
+      <br><div style = "text-align: center;"><button ej-button class='e-flat' (click)='deletegrid()'> Delete User</button></div>
   </div>
-  <table *ngFor = "let user of userslist">
+  <!-- <table *ngFor = "let user of userslist">
     <tr>
       <td>
         <div>{{user.firstname}}</div>
@@ -56,7 +58,7 @@
         <div>{{user.lastname}}</div>
       </td>
     </tr>
-    <!-- <tr>
+     <tr>
       <td>
         <div>{{user.email}}</div>
       </td>
@@ -65,14 +67,15 @@
       <td>
         <div>{{user.position}}</div>
       </td>
-    </tr> -->
+    </tr>
     <tr>
       <td>
         <button (click)="delete(user)">Delete Applicant</button>
       </td>
     </tr>
-  </table>
+  </table> -->
   <br>
+  <div [hidden] = !loggedin style = "text-align: center;"><button (click)="logout()">Log Out</button></div>
 </div>
 </body>
 </html>

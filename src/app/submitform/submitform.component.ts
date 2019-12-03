@@ -19,6 +19,8 @@ export class SubmitFormComponent implements OnInit {
   positions = ['A', 'B', 'C', 'D'];
   list = false;
   resume;
+  uploadmessage = '';
+  submitmessage = '';
 
   constructor(public submituserservice: SubmituserService, public http: HttpClient) {
   }
@@ -26,7 +28,7 @@ export class SubmitFormComponent implements OnInit {
   }
 
   onSubmit(userForm: NgForm) {
-    alert('submit clicked');
+    // alert('submit clicked');
     const user: User = {
       firstname: userForm.value.firstname,
       lastname: userForm.value.lastname,
@@ -34,18 +36,20 @@ export class SubmitFormComponent implements OnInit {
       position: userForm.value.position
     };
     this.submituserservice.addUser(user);
-    userForm.reset();
+    this.submitmessage = 'Application Submitted Succesfully';
+    window.location.reload();
     this.list = false;
   }
 
   onUpload(userForm: NgForm) {
-    alert('Upload clicked');
+    // alert('Upload clicked');
     const formdata = new FormData();
     formdata.append('file', this.resume);
     this.http.post<any>('http://localhost:4000/api/uploadfile', formdata).subscribe(
       (res) => console.log(res),
-      (err) => console.log(err)
+      (err) => console.log(err),
     );
+    this.uploadmessage = 'Resume Upload Succesfull';
   }
 
   selectfile(event) {
