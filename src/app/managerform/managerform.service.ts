@@ -11,6 +11,13 @@ import { User } from '../user';
 export class ManagerformService {
   constructor(private http: HttpClient) {}
 
+  // addmanagers() {
+  //   console.log('in mgr service add');
+  //   const mgr: any[] = [];
+  //   this.http.post('http://localhost:4000/api/addmanagers', mgr).subscribe((responsedata: any) => {
+  //   });
+  //   return;
+  // }
 
   getManagers(): Observable<any> {
     return this.http.get('http://localhost:4000/api/managerlist');

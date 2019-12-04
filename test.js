@@ -1,5 +1,6 @@
 const {Client} = require('pg')
 
+
 const client = new Client({
   user: "postgres",
   password: "postgres",
@@ -9,6 +10,8 @@ const client = new Client({
 })
 
 console.log("start");
+
+
 
 client .connect()
 .then(() => console.log("Connecetd succesfully"))
@@ -22,11 +25,11 @@ client .connect()
 .then(() => client.query("INSERT INTO users values ('Shabbi2','Kesa','kesash@mail.uc.edu','A', 'S')"))
 .then(() => client.query("INSERT INTO users values ('Shabbi3','Kesa','kesash@mail.uc.edu','A', 'S')"))
 .then(() => client.query("INSERT INTO users values ('Shabbi4','Kesa','kesash@mail.uc.edu','A', 'S')"))
-.then(() => client.query("INSERT INTO managers values ('test1','test123')"))
-.then(() => client.query("INSERT INTO managers values ('test2','test234')"))
-.then(() => client.query("INSERT INTO managers values ('test3','test345')"))
-.then(() => client.query("INSERT INTO managers values ('test4','test456')"))
-.then(() => console.log("1 User and 4 managers Inserted"))
+// .then(() => client.query("INSERT INTO managers values ('test1','test123')"))
+// .then(() => client.query("INSERT INTO managers values ('test2','test234')"))
+// .then(() => client.query("INSERT INTO managers values ('test3','test345')"))
+// .then(() => client.query("INSERT INTO managers values ('test4','test456')"))
+.then(() => console.log("5 User and 0 managers Inserted"))
 .catch(e => console.log(e))
 .finally()
 

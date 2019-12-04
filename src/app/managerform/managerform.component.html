@@ -35,10 +35,10 @@
   <div>Here comes the display users component</div>
   <div>
       <!-- <div style = "text-align: center;"><button ej-button class='e-flat' (click)='deletegrid()'> Delete </button></div><br> -->
-      <ejs-grid #grid [dataSource]='user' [allowSorting]="true" allowPaging='true'  [enableHover]="false"
+      <ejs-grid #grid [dataSource]='user' [selectionSettings]='selectionOptions' [allowSorting]="true" allowPaging='true'  [enableHover]="false"
        [toolbar]='toolbarOptions' >
           <e-columns>
-              <e-column type='checkbox' width='50'></e-column>
+              <!-- <e-column type='checkbox' width='50'></e-column> -->
               <e-column field='firstname' headerText='First Name'></e-column>
               <e-column field='lastname' headerText='Last Name' ></e-column>
               <e-column field='email' headerText='Email ID'  format='C2' ></e-column>

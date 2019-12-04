@@ -12,7 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { routingComponents } from './app-routing.module';
 import { GridModule, PageService, SortService, FilterService, GroupService, EditService } from '@syncfusion/ej2-angular-grids';
-import { DataTablesModule } from 'angular-datatables';
+
 
 
 @NgModule({
@@ -30,7 +30,6 @@ import { DataTablesModule } from 'angular-datatables';
     HttpClientModule,
     RouterModule,
     GridModule,
-    DataTablesModule,
   ],
   providers: [SubmituserService, PageService,
     SortService,

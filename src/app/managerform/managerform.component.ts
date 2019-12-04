@@ -5,9 +5,9 @@ import { Manager } from '../manager';
 import { User } from '../user';
 import { Observable, Subscriber, Subject } from 'rxjs';
 import { ManagerformService } from './managerform.service';
-import { DataTablesModule } from 'angular-datatables';
+
 // tslint:disable-next-line: max-line-length
-import { SearchService, SortService, FilterService, GroupService, PageService, GridComponent, ToolbarItems, ToolbarService } from '@syncfusion/ej2-angular-grids';
+import { SearchService, SortService, FilterService, GroupService, PageService, GridComponent, ToolbarItems, ToolbarService, SelectionSettingsModel } from '@syncfusion/ej2-angular-grids';
 
 
 @Component({
@@ -30,25 +30,31 @@ export class ManagerComponent implements OnInit {
   auth = null;
   loggedin = null;
   index = null;
+  public selectionOptions: SelectionSettingsModel;
   public toolbarOptions: ToolbarItems[];
   @ViewChild('grid', null)
     public grid: GridComponent;
+
+
   constructor(public managerformservice: ManagerformService, private http: HttpClient) {
+    this.managerformservice.getManagers();
     this.getJSON('http://localhost:4000/api/managerlist').subscribe(data => {
       for (const i of data) {
         this.managerlist.push(new Manager(i['username'], i['password']));
         this.usernames.push(i['username']);
         this.passwords.push(i['password']);
-    }
+        }
       console.log('Total number of managers is:' + this.managerlist.length);
-  });
+      console.log(this.managerlist);
+    });
     this.getJSON('http://localhost:4000/api/submitform').subscribe(data => {
       for (const j of data) {
         if (j['show'] == 'S') {
         this.userslist.push(new User(j['firstname'],j['lastname'],j['email'],j['position']));
+        this.user.push(new User(j['firstname'],j['lastname'],j['email'],j['position']));
       }
     }
-      this.user = this.userslist;
+      // this.user = this.userslist;
     });
   }
 
@@ -57,11 +63,9 @@ export class ManagerComponent implements OnInit {
   }
 
 
-   ngOnInit() {
-    this.user = this.userslist;
-    // console.log('called ngoninit');
-    // console.log(this.user);
+  ngOnInit() {
     this.toolbarOptions = ['Search'];
+    this.selectionOptions = { type: 'Single' };
   }
 
    login(loginform: NgForm) {
@@ -73,41 +77,35 @@ export class ManagerComponent implements OnInit {
     this.auth = this.managerformservice.managerauth(this.managerlist, mgr);
     if (this.auth) {
         this.loggedin = true;
+        this.grid.refresh();
     } else {
       console.log('Invalid credentials');
       alert('Invalid credentials! Kindly enter correct Username and Password');
       loginform.reset();
+      // window.location.reload();
     }
     return;
 }
-   managerList() {
+  managerList() {
     this.managerformservice.getManagers().subscribe((data: {}) => {
       console.log(data);
       this.managerlist = data;
     });
   }
 
-  delete(user: User) {
-      // console.log('In mgr cmpt ts delete function');
-      this.managerformservice.deleteuser(user);
-      this.index = this.userslist.indexOf(user);
-      if (this.index > -1) {
-        this.userslist.splice(this.index, 1);
-      }
-      this.grid.refresh();
-  }
-
-    deletegrid(): void {
-      console.log(this.grid.getSelectedRowIndexes()[0]);
-      const selectedRow: number = this.grid.getSelectedRowIndexes()[1];
+  deletegrid(): void {
+      const selectedRow: number = this.grid.getSelectedRowIndexes()[0];
+      // console.log(selectedRow);
       if (this.grid.getSelectedRowIndexes().length) {
+        // console.log(this.user[selectedRow]);
+        this.managerformservice.deleteuser(this.user[selectedRow]);
         this.user.splice(selectedRow, 1);
       } else {
         alert('No records selected for delete operation');
       }
       this.grid.refresh();
   }
-    logout() {
+  logout() {
       window.location.reload();
     }
 }

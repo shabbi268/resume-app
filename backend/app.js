@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const knex = require('./knex');
 const app = express();
 const multer = require('multer');
-
+const bcrypt = require('bcrypt');
 
 var store = multer.diskStorage({
     destination : function(req, file, next) {
@@ -25,6 +25,7 @@ const User = bookshelf.model('User', {
 const Manager = bookshelf.model('Manager', {
   tableName: 'managers',
 })
+
 
 
 app.use(bodyParser.json());
@@ -56,22 +57,24 @@ app.post("/api/submitform", (req, res, next) => {
   return userform;
 });
 
-app.post("/api/managerlist", (req, res, next) => {
-  const mgr = req.body;
-  console.log('in app.js managerlist app.post');
-  client.query('SELECT * FROM managers WHERE username = $1 and password =$2',[mgr.username, mgr.password],
-   (err, result) => {
-    if (err) {
-      console.log('error');
-      res.status(200).send(err.body);
-    }
-    else {
-      console.log(result.rows);
-      res.status(200).send(result.rows);
-    }
-  })
-  return mgr;
-});
+
+
+// app.post("/api/managerlist", (req, res, next) => {
+//   const mgr = req.body;
+//   console.log('in app.js managerlist app.post');
+//   client.query('SELECT * FROM managers WHERE username = $1 and password =$2',[mgr.username, mgr.password],
+//    (err, result) => {
+//     if (err) {
+//       console.log('error');
+//       res.status(200).send(err.body);
+//     }
+//     else {
+//       console.log(result.rows);
+//       res.status(200).send(result.rows);
+//     }
+//   })
+//   return mgr;
+// });
 
 app.put("/api/deleteuser", (req, res, next) =>{
   const usr = req.body;
@@ -79,7 +82,7 @@ app.put("/api/deleteuser", (req, res, next) =>{
     .where({firstname: usr.firstname, lastname: usr.lastname})
     .save({show: 'NS'},{patch:true})
     .then(function(x) {
-      console.log('User deleted sucessfully');
+      // console.log('User deleted sucessfully');
     });
 });
 
@@ -89,13 +92,16 @@ app.get("/api/submitform", (req, res, next) => {
   })
 });
 
-  app.get("/api/managerlist", (req, res, next) => {
-    Manager.fetchAll().then((mgrs) => {
-      res.status(200).send(mgrs);
+app.get("/api/managerlist", (req, res, next) => {
+    Manager.forge({ username: 'admin', password: 'admin'}).save()
+    Manager.forge({ username: 'admin2', password: 'admin2'}).save()
+    Manager.fetchAll().then((managers) => {
+      // console.log('two managers added and fetchall mgrlist');
+      res.status(200).send(managers);
     })
-  });
+});
 
-  app.post("/api/uploadfile", upload.single("file"), (req, res, next) => {
+app.post("/api/uploadfile", upload.single("file"), (req, res, next) => {
     const file = req.file
     console.log(file.filename);
       if (!file) {
@@ -103,7 +109,7 @@ app.get("/api/submitform", (req, res, next) => {
         return res.status(422).send("An Error Occured");
       }
       res.send(file)
-  });
+});
 
 module.exports = app;
 
