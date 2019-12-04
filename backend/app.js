@@ -92,7 +92,29 @@ app.get("/api/submitform", (req, res, next) => {
   })
 });
 
+// app.post("/api/manager", (req, res, next) => {
+//   const mgr = req.body;
+//   console.log(mgr.password);
+//   Manager
+//     .where({username: mgr.username})
+//     .fetch().then((managers) => {
+//     bcrypt.compare(mgr.password, managers.password, function(err, res) {
+//       console.log(res.body);
+//       return res;
+//     })
+//     res.status(200).send(managers);
+//   })
+// });
+
+
+
 app.get("/api/managerlist", (req, res, next) => {
+    // bcrypt.hash("admin", 10, function(err, hash) {
+    //   Manager.forge({ username: 'admin', password: hash}).save()
+    // });
+    // bcrypt.hash("admin1", 10, function(err, hash1) {
+    //   Manager.forge({ username: 'admin1', password: hash1}).save()
+    // });
     Manager.forge({ username: 'admin', password: 'admin'}).save()
     Manager.forge({ username: 'admin2', password: 'admin2'}).save()
     Manager.fetchAll().then((managers) => {
@@ -110,6 +132,7 @@ app.post("/api/uploadfile", upload.single("file"), (req, res, next) => {
       }
       res.send(file)
 });
+
 
 module.exports = app;
 

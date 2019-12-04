@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { Manager } from '../manager';
 import { User } from '../user';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -33,6 +32,17 @@ export class ManagerformService {
       }
     }
   }
+
+  // hashauth(mgr: Manager[], manager: Manager) {
+  //   for (const item of mgr) {
+  //     if (item['username'] == manager['username']) {
+  //       this.http.post('http://localhost:4000/api/manager', manager).subscribe((responsedata: any) => {
+  //         console.log(responsedata);
+  //       });
+  //     }
+  //   }
+  // }
+
   deleteuser(user: User) {
     this.http.put('http://localhost:4000/api/deleteuser', user).subscribe((responsedata: any) => {
       console.log('in mgr service ts put call');

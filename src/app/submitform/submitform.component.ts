@@ -16,7 +16,7 @@ import { HttpClient } from '@angular/common/http';
 export class SubmitFormComponent implements OnInit {
   user: User[] = [];
   userslist: any = [];
-  positions = ['A', 'B', 'C', 'D'];
+  positions = ['Systems Engineer', 'Software Developer', 'Full-Stack Developer', 'Java Developer', 'DevOps Engineer' ];
   list = false;
   resume;
   uploadmessage = '';

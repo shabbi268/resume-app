@@ -5,10 +5,46 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-  <div style = "text-align: center;">
-    <form #userForm="ngForm" action="/api/uploadfile" (ngSubmit) = "onSubmit(userForm)" enctype="multipart/form-data" method = "post" >
+  <div style = "text-align: center;" class="login-form">
+    <form #userForm="ngForm" class="login-form" action="/api/uploadfile" (ngSubmit) = "onSubmit(userForm)" enctype="multipart/form-data" method = "post" >
+        <h2 class="text-center">Submit Application</h2>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="First Name" type="text"  name = "firstname" ngModel required>
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" placeholder="Last Name" type="text" name = "lastname" ngModel required>
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" placeholder="Email Id" type="email" name = "email" ngModel required>
+        </div>
+        <div class="form-group">
+            <select name="position" class="form-control" placeholder="Job Role" ngModel required>
+                <option *ngFor="let position of positions">{{position}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input name = "file"  placeholder="Resume" type="file" name = "email" accept=".pdf,.doc,.docx" (change)="selectfile($event)" ngModel required/>
+            <br><button type="button" class="btn btn-info"  (click)="onUpload(userForm)">Upload</button><br>
+            <div class="alert alert-success" *ngIf="uploadmessage">
+                {{uploadmessage}}
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn-info btn-block" (click)="userList()">List</button>
+        </div>
+        <div class="form-group">
+            <button type="submit" [disabled]='userForm.invalid' value="submit" class="btn btn-primary btn-block" name="submit">Submit</button><br>
+            <div class="alert alert-success" *ngIf="submitmessage">
+                {{submitmessage}}
+            </div>
+        </div>
+    </form>
+    <!-- <form #userForm="ngForm" class="login-form" action="/api/uploadfile" (ngSubmit) = "onSubmit(userForm)" enctype="multipart/form-data" method = "post" >
         <table style="margin-left:auto;margin-right:auto;">
             <tr>
               <td>First Name:</td>
@@ -49,7 +85,7 @@
           <br>
           <P><button type="submit" [disabled]='userForm.invalid' value="submit" name="submit">Submit</button></P>
           {{submitmessage}}
-    </form>
+  </form> -->
     <p [hidden]='!userForm.invalid' style='color: red;'>Please Fill all the details</p>
 
     <div [hidden] = '!list'>

@@ -1,20 +1,25 @@
 <head>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h1>Resume Application</h1>
+<!-- <h1>Resume Application</h1> -->
 <div>
-  <nav class="navbar navbar-inverse">
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:darkgray" >
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" >Resume Application</a>
+          <a class="navbar-brand" style="color: black" routerLink = "" routerLinkActive="active">Resume Application</a>
         </div>
         <ul class="nav navbar-nav">
-          <li class="active"><a routerLink = "" routerLinkActive="active" >Home</a></li>
+          <li class="active"><a routerLink = "/home" style="color: black" routerLinkActive="active">Home</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><a  routerLink = "/submitform" routerLinkActive="active" ><span class="glyphicon glyphicon-log-in"></span>Submit Form</a></li>
-            <li><a  routerLink = "/managerlogin" routerLinkActive="active" ><span class="glyphicon glyphicon-log-in"></span>Manager Login</a></li>
+            <li><a  routerLink = "/submitform" style="color: black" routerLinkActive="active" ><span class="glyphicon glyphicon-log-in"></span>&nbsp;Submit Form</a></li>
+            <li><a  routerLink = "/managerlogin" style="color: black" routerLinkActive="active" ><span class="glyphicon glyphicon-log-in"></span>&nbsp;Manager Login</a>
+            </li>
         </ul>
       </div>
     </nav>

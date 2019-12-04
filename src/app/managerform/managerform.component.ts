@@ -5,7 +5,6 @@ import { Manager } from '../manager';
 import { User } from '../user';
 import { Observable, Subscriber, Subject } from 'rxjs';
 import { ManagerformService } from './managerform.service';
-
 // tslint:disable-next-line: max-line-length
 import { SearchService, SortService, FilterService, GroupService, PageService, GridComponent, ToolbarItems, ToolbarService, SelectionSettingsModel } from '@syncfusion/ej2-angular-grids';
 

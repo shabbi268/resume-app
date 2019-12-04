@@ -2,41 +2,37 @@
 <html lang="en" >
 <head>
   <title>Submit Form</title>
+  <link rel="stylesheet" type="css" href="/Users/shabarishkesa/resume-app/src/app/managerform/managerform.component.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-  <div [hidden] = loggedin style = "text-align: center;">
+  <div [hidden] = loggedin style = "text-align: center;" class="login-form" >
     <form #loginform="ngForm" (ngSubmit) = "login(loginform)" >
-        <table style="margin-left:auto;margin-right:auto;">
-            <tr>
-              <td>Username:</td>
-              <td>
-                <input type="text"  name = "username" placeholder="Username" ngModel required />
-              </td>
-            </tr>
-            <tr>
-                <td>Password:</td>
-                <td>
-                  <input type="password" name = "password" placeholder="password" ngModel required />
-                </td>
-              </tr>
-          </table>
-          <br>
-          <P><button type="submit" [disabled]='loginform.invalid' value="submit" name="submit">Login</button></P>
-          <br>
+        <h2 class="text-center">Log in</h2>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Username" required="required" type="text"  name = "username" ngModel required>
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" placeholder="Password" required="required" type="password" name = "password" ngModel required>
+        </div>
+        <div class="form-group">
+            <button type="submit" [disabled]='loginform.invalid' value="submit" name="submit" class="btn btn-primary btn-block">Log in</button>
+        </div>
     </form>
     <p [hidden]='!loginform.invalid' style='color: red;'>Please Fill username and password details</p>
   </div>
 
 
   <div [hidden] = !loggedin>
-  <div>Here comes the display users component</div>
   <div>
       <!-- <div style = "text-align: center;"><button ej-button class='e-flat' (click)='deletegrid()'> Delete </button></div><br> -->
       <ejs-grid #grid [dataSource]='user' [selectionSettings]='selectionOptions' [allowSorting]="true" allowPaging='true'  [enableHover]="false"
-       [toolbar]='toolbarOptions' >
+       [toolbar]='toolbarOptions'>
           <e-columns>
               <!-- <e-column type='checkbox' width='50'></e-column> -->
               <e-column field='firstname' headerText='First Name'></e-column>
@@ -45,7 +41,7 @@
               <e-column field='position' headerText='Position Applied'></e-column>
           </e-columns>
       </ejs-grid>
-      <br><div style = "text-align: center;"><button ej-button class='e-flat' (click)='deletegrid()'> Delete User</button></div>
+      <br><div style = "text-align: center;"><button type="button"  ejs-button cssClass="e-primary" (click)='deletegrid()'><span class="glyphicon glyphicon-trash"></span> Delete User</button></div>
   </div>
   <!-- <table *ngFor = "let user of userslist">
     <tr>
@@ -75,7 +71,7 @@
     </tr>
   </table> -->
   <br>
-  <div [hidden] = !loggedin style = "text-align: center;"><button (click)="logout()">Log Out</button></div>
+  <div [hidden] = !loggedin style = "text-align: center;"><button class="btn btn-default btn-sm" (click)="logout()">Log Out</button></div>
 </div>
 </body>
 </html>

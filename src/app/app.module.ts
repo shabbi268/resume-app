@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { routingComponents } from './app-routing.module';
 import { GridModule, PageService, SortService, FilterService, GroupService, EditService } from '@syncfusion/ej2-angular-grids';
+import { HomeComponent } from './home/home.component';
 
 
 
@@ -20,6 +21,7 @@ import { GridModule, PageService, SortService, FilterService, GroupService, Edit
     AppComponent,
     SubmitFormComponent,
     ManagerComponent,
+    HomeComponent,
     routingComponents,
   ],
   imports: [
