@@ -24,7 +24,7 @@
             <button type="submit" [disabled]='loginform.invalid' value="submit" name="submit" class="btn btn-primary btn-block">Log in</button>
         </div>
     </form>
-    <p [hidden]='!loginform.invalid' style='color: red;'>Please Fill username and password details</p>
+    <p [hidden]='!loginform.invalid' class="alert alert-danger" role="alert" style='color: red;'>Please Fill username and password details</p>
   </div>
 
 

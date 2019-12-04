@@ -86,7 +86,7 @@
           <P><button type="submit" [disabled]='userForm.invalid' value="submit" name="submit">Submit</button></P>
           {{submitmessage}}
   </form> -->
-    <p [hidden]='!userForm.invalid' style='color: red;'>Please Fill all the details</p>
+    <p [hidden]='!userForm.invalid' class="alert alert-danger" role="alert" style='color: red;'>Please Fill all the details</p>
 
     <div [hidden] = '!list'>
       <table *ngFor = "let user of userslist"  style="border: solid 2px red;">
