@@ -2,12 +2,14 @@ import { User } from '../user';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SubmituserService {
-  user1 = new User('Shabbi', 'Kesa', 'kesash@mail.uc.edu', 'A');
+  file: File;
+  user1 = new User('Shabbi', 'Kesa', 'kesash@mail.uc.edu', 'A', 'Sample File', 'S');
   userlist: User[] = [this.user1];
 
 
@@ -25,12 +27,14 @@ export class SubmituserService {
     });
     return;
   }
-  // Below function is not used for upload
-  uploadFile(file: File) {
-    // console.log('In file upload in service file-start');
-    // console.log(file);
-    this.http.post('http://localhost:4000/api/uploadfile', file).subscribe((responsedata: any) => {
-    // console.log('In file upload in service file-end');
+  addfilepath(filepath, userForm: NgForm) {
+    console.log(filepath);
+    const li = [userForm.value.firstname, filepath];
+    this.http.put('http://localhost:4000/api/addfilepath', li).subscribe((responsedata: any) => {
+      console.log(filepath);
     });
+    return;
   }
+
+  // Below function is not used for upload
 }

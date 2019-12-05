@@ -39,37 +39,11 @@
               <e-column field='lastname' headerText='Last Name' ></e-column>
               <e-column field='email' headerText='Email ID'  format='C2' ></e-column>
               <e-column field='position' headerText='Position Applied'></e-column>
+              <e-column field='file' headerText='Resume'></e-column>
           </e-columns>
       </ejs-grid>
       <br><div style = "text-align: center;"><button type="button"  ejs-button cssClass="e-primary" (click)='deletegrid()'><span class="glyphicon glyphicon-trash"></span> Delete User</button></div>
   </div>
-  <!-- <table *ngFor = "let user of userslist">
-    <tr>
-      <td>
-        <div>{{user.firstname}}</div>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <div>{{user.lastname}}</div>
-      </td>
-    </tr>
-     <tr>
-      <td>
-        <div>{{user.email}}</div>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <div>{{user.position}}</div>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <button (click)="delete(user)">Delete Applicant</button>
-      </td>
-    </tr>
-  </table> -->
   <br>
   <div [hidden] = !loggedin style = "text-align: center;"><button class="btn btn-default btn-sm" (click)="logout()">Log Out</button></div>
 </div>

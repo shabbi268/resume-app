@@ -28,7 +28,7 @@
             </select>
         </div>
         <div class="form-group">
-            <input name = "file"  placeholder="Resume" type="file" name = "email" accept=".pdf,.doc,.docx" (change)="selectfile($event)" ngModel required/>
+            <input name = "file"  placeholder="Resume" type="file" accept=".pdf,.doc,.docx" (change)="selectfile($event)" ngModel required/>
             <br><button type="button" class="btn btn-info"  (click)="onUpload(userForm)">Upload</button><br>
             <div class="alert alert-success" *ngIf="uploadmessage">
                 {{uploadmessage}}
@@ -108,6 +108,11 @@
         <tr>
           <td>
             <div>{{user.position}}</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div>{{user.file}}</div>
           </td>
         </tr>
         <tr>

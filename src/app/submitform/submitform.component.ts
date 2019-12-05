@@ -21,6 +21,7 @@ export class SubmitFormComponent implements OnInit {
   resume;
   uploadmessage = '';
   submitmessage = '';
+  filepath = '';
 
   constructor(public submituserservice: SubmituserService, public http: HttpClient) {
   }
@@ -33,11 +34,16 @@ export class SubmitFormComponent implements OnInit {
       firstname: userForm.value.firstname,
       lastname: userForm.value.lastname,
       email: userForm.value.email,
-      position: userForm.value.position
+      position: userForm.value.position,
+      file: this.filepath,
+      show: 'S'
     };
     this.submituserservice.addUser(user);
-    this.submitmessage = 'Application Submitted Succesfully';
-    window.location.reload();
+    this.submitmessage = 'Your Application for ' + user.position + ' Submitted Succesfully';
+    // window.location.reload();
+    userForm.reset();
+    // setTimeout(this.uploadmessage = '', 5000);
+    // setTimeout(this.submitmessage = '', 5000);
     this.list = false;
   }
 
@@ -45,8 +51,10 @@ export class SubmitFormComponent implements OnInit {
     // alert('Upload clicked');
     const formdata = new FormData();
     formdata.append('file', this.resume);
+    formdata.append('firstname', userForm.value.firstname);
+    console.log(formdata);
     this.http.post<any>('http://localhost:4000/api/uploadfile', formdata).subscribe(
-      (res) => console.log(res),
+      (res) => {this.filepath = res.path; console.log(res.path); },
       (err) => console.log(err),
     );
     this.uploadmessage = 'Resume Upload Succesfull';

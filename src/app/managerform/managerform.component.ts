@@ -29,6 +29,7 @@ export class ManagerComponent implements OnInit {
   auth = null;
   loggedin = null;
   index = null;
+  invalid = null;
   public selectionOptions: SelectionSettingsModel;
   public toolbarOptions: ToolbarItems[];
   @ViewChild('grid', null)
@@ -43,14 +44,13 @@ export class ManagerComponent implements OnInit {
         this.usernames.push(i['username']);
         this.passwords.push(i['password']);
         }
-      console.log('Total number of managers is:' + this.managerlist.length);
-      console.log(this.managerlist);
+      // console.log('Total number of managers is:' + this.managerlist.length);
     });
     this.getJSON('http://localhost:4000/api/submitform').subscribe(data => {
       for (const j of data) {
         if (j['show'] == 'S') {
-        this.userslist.push(new User(j['firstname'],j['lastname'],j['email'],j['position']));
-        this.user.push(new User(j['firstname'],j['lastname'],j['email'],j['position']));
+        this.userslist.push(new User(j['firstname'],j['lastname'],j['email'],j['position'], j['file'], j['show']));
+        this.user.push(new User(j['firstname'],j['lastname'],j['email'],j['position'], j['file'], j['show']));
       }
     }
       // this.user = this.userslist;
@@ -80,6 +80,7 @@ export class ManagerComponent implements OnInit {
     } else {
       console.log('Invalid credentials');
       alert('Invalid credentials! Kindly enter correct Username and Password');
+      this.invalid = true;
       loginform.reset();
       // window.location.reload();
     }

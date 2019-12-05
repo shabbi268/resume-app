@@ -5,13 +5,14 @@ const knex = require('./knex');
 const app = express();
 const multer = require('multer');
 const bcrypt = require('bcrypt');
+const path = require('path');
 
 var store = multer.diskStorage({
     destination : function(req, file, next) {
       next(null, './Resumes');
     },
     filename: function (req, file, next) {
-      next(null, file.originalname);
+      next(null, 'Resume' + '-' + Date.now() + path.extname(file.originalname));
     }
   });
 
@@ -52,29 +53,12 @@ app.get('/', (req, res) => {
 
 app.post("/api/submitform", (req, res, next) => {
   const userform = req.body;
-  User.forge({ firstname: userform.firstname, lastname: userform.lastname, email: userform.email, position: userform.position, show: 'S'}).save().then((User) => {
+  // console.log(userform.email);
+  User.forge({ firstname: userform.firstname, lastname: userform.lastname, email: userform.email, position: userform.position, file: userform.file, show: 'S'}).save().then((User) => {
   })
   return userform;
 });
 
-
-
-// app.post("/api/managerlist", (req, res, next) => {
-//   const mgr = req.body;
-//   console.log('in app.js managerlist app.post');
-//   client.query('SELECT * FROM managers WHERE username = $1 and password =$2',[mgr.username, mgr.password],
-//    (err, result) => {
-//     if (err) {
-//       console.log('error');
-//       res.status(200).send(err.body);
-//     }
-//     else {
-//       console.log(result.rows);
-//       res.status(200).send(result.rows);
-//     }
-//   })
-//   return mgr;
-// });
 
 app.put("/api/deleteuser", (req, res, next) =>{
   const usr = req.body;
@@ -85,6 +69,7 @@ app.put("/api/deleteuser", (req, res, next) =>{
       // console.log('User deleted sucessfully');
     });
 });
+
 
 app.get("/api/submitform", (req, res, next) => {
   User.fetchAll().then((users) => {
@@ -109,12 +94,12 @@ app.get("/api/submitform", (req, res, next) => {
 
 
 app.get("/api/managerlist", (req, res, next) => {
-    // bcrypt.hash("admin", 10, function(err, hash) {
-    //   Manager.forge({ username: 'admin', password: hash}).save()
-    // });
-    // bcrypt.hash("admin1", 10, function(err, hash1) {
-    //   Manager.forge({ username: 'admin1', password: hash1}).save()
-    // });
+    bcrypt.hash("admin", 10, function(err, hash) {
+      Manager.forge({ username: 'admin', password: hash}).save()
+    });
+    bcrypt.hash("admin1", 10, function(err, hash1) {
+      Manager.forge({ username: 'admin1', password: hash1}).save()
+    });
     Manager.forge({ username: 'admin', password: 'admin'}).save()
     Manager.forge({ username: 'admin2', password: 'admin2'}).save()
     Manager.fetchAll().then((managers) => {
@@ -124,8 +109,10 @@ app.get("/api/managerlist", (req, res, next) => {
 });
 
 app.post("/api/uploadfile", upload.single("file"), (req, res, next) => {
-    const file = req.file
-    console.log(file.filename);
+    const file = req.file;
+    const data = req.body['firstname'];
+    // console.log(data);
+    // console.log(file.path);
       if (!file) {
         console.log(err)
         return res.status(422).send("An Error Occured");
