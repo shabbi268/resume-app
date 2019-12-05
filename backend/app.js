@@ -18,6 +18,7 @@ var store = multer.diskStorage({
 
 var upload = multer({storage: store});
 
+// Models for two tables in bookshelf
 const bookshelf = require('bookshelf')(knex)
 const User = bookshelf.model('User', {
   tableName: 'users',
@@ -33,7 +34,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
-
+// To overcome the CORS error
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -51,6 +52,7 @@ app.get('/', (req, res) => {
   res.send('/Users/shabarishkesa/resume-app/src/index.html');
 });
 
+// For adding the user record into users table
 app.post("/api/submitform", (req, res, next) => {
   const userform = req.body;
   // console.log(userform.email);
@@ -59,7 +61,7 @@ app.post("/api/submitform", (req, res, next) => {
   return userform;
 });
 
-
+// For updating the user record's for soft delete functionality
 app.put("/api/deleteuser", (req, res, next) =>{
   const usr = req.body;
   User
@@ -70,7 +72,7 @@ app.put("/api/deleteuser", (req, res, next) =>{
     });
 });
 
-
+// to fetch all users in the users table
 app.get("/api/submitform", (req, res, next) => {
   User.fetchAll().then((users) => {
     res.status(200).send(users);
@@ -92,14 +94,14 @@ app.get("/api/submitform", (req, res, next) => {
 // });
 
 
-
+// to fetch managers records in managers table for authentication
 app.get("/api/managerlist", (req, res, next) => {
-    bcrypt.hash("admin", 10, function(err, hash) {
-      Manager.forge({ username: 'admin', password: hash}).save()
-    });
-    bcrypt.hash("admin1", 10, function(err, hash1) {
-      Manager.forge({ username: 'admin1', password: hash1}).save()
-    });
+    // bcrypt.hash("admin", 10, function(err, hash) {
+    //   Manager.forge({ username: 'admin', password: hash}).save()
+    // });
+    // bcrypt.hash("admin1", 10, function(err, hash1) {
+    //   Manager.forge({ username: 'admin1', password: hash1}).save()
+    // });
     Manager.forge({ username: 'admin', password: 'admin'}).save()
     Manager.forge({ username: 'admin2', password: 'admin2'}).save()
     Manager.fetchAll().then((managers) => {
@@ -108,6 +110,7 @@ app.get("/api/managerlist", (req, res, next) => {
     })
 });
 
+// file upload using multer to destination path
 app.post("/api/uploadfile", upload.single("file"), (req, res, next) => {
     const file = req.file;
     const data = req.body['firstname'];

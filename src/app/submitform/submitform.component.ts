@@ -17,7 +17,6 @@ export class SubmitFormComponent implements OnInit {
   user: User[] = [];
   userslist: any = [];
   positions = ['Systems Engineer', 'Software Developer', 'Full-Stack Developer', 'Java Developer', 'DevOps Engineer' ];
-  list = false;
   resume;
   uploadmessage = '';
   submitmessage = '';
@@ -28,6 +27,7 @@ export class SubmitFormComponent implements OnInit {
   ngOnInit() {
   }
 
+  // called on clicking the submit button, submits the user form and calls the method in service.ts file
   onSubmit(userForm: NgForm) {
     // alert('submit clicked');
     const user: User = {
@@ -40,13 +40,10 @@ export class SubmitFormComponent implements OnInit {
     };
     this.submituserservice.addUser(user);
     this.submitmessage = 'Your Application for ' + user.position + ' Submitted Succesfully';
-    // window.location.reload();
     userForm.reset();
-    // setTimeout(this.uploadmessage = '', 5000);
-    // setTimeout(this.submitmessage = '', 5000);
-    this.list = false;
   }
 
+  // resume upload using is multer is done by http.post request
   onUpload(userForm: NgForm) {
     // alert('Upload clicked');
     const formdata = new FormData();
@@ -60,6 +57,7 @@ export class SubmitFormComponent implements OnInit {
     this.uploadmessage = 'Resume Upload Succesfull';
   }
 
+  // choosen file is retrived and assigned to a variable for above upload method
   selectfile(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
@@ -67,14 +65,6 @@ export class SubmitFormComponent implements OnInit {
     }
   }
 
-  userList() {
-    this.list = true;
-    this.userslist = [];
-    this.submituserservice.getUsers().subscribe((data: {}) => {
-      console.log(data);
-      this.userslist = data;
-    });
-  }
 }
 
 

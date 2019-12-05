@@ -10,18 +10,12 @@ import { User } from '../user';
 export class ManagerformService {
   constructor(private http: HttpClient) {}
 
-  // addmanagers() {
-  //   console.log('in mgr service add');
-  //   const mgr: any[] = [];
-  //   this.http.post('http://localhost:4000/api/addmanagers', mgr).subscribe((responsedata: any) => {
-  //   });
-  //   return;
-  // }
-
+  // retrieve managers using http get request
   getManagers(): Observable<any> {
     return this.http.get('http://localhost:4000/api/managerlist');
   }
 
+  // Login authentication for manager credentials is done here
   managerauth(mgr: Manager[], manager: Manager) {
     for (const item of mgr) {
       if (item['username'] == manager['username']) {
@@ -33,16 +27,7 @@ export class ManagerformService {
     }
   }
 
-  // hashauth(mgr: Manager[], manager: Manager) {
-  //   for (const item of mgr) {
-  //     if (item['username'] == manager['username']) {
-  //       this.http.post('http://localhost:4000/api/manager', manager).subscribe((responsedata: any) => {
-  //         console.log(responsedata);
-  //       });
-  //     }
-  //   }
-  // }
-
+  // soft delete of user is done using the http.put request
   deleteuser(user: User) {
     this.http.put('http://localhost:4000/api/deleteuser', user).subscribe((responsedata: any) => {
       console.log('in mgr service ts put call');

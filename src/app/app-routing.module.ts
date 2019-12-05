@@ -5,6 +5,7 @@ import { SubmitFormComponent } from './submitform/submitform.component';
 import { HomeComponent } from './home/home.component';
 
 
+// Routes for different components
 const routes: Routes = [
   { path: 'managerlogin', component: ManagerComponent},
   { path: 'submitform', component: SubmitFormComponent},

@@ -16,10 +16,12 @@ export class SubmituserService {
 
   constructor(private http: HttpClient) {}
 
+  // retrieve users from users table
   getUsers(): Observable<any> {
     return this.http.get('http://localhost:4000/api/submitform');
   }
 
+  // calls the http post request to add user into users table
   addUser(user: User) {
     this.userlist.push(user);
     this.http.post('http://localhost:4000/api/submitform', user).subscribe((responsedata: any) => {
@@ -27,14 +29,5 @@ export class SubmituserService {
     });
     return;
   }
-  addfilepath(filepath, userForm: NgForm) {
-    console.log(filepath);
-    const li = [userForm.value.firstname, filepath];
-    this.http.put('http://localhost:4000/api/addfilepath', li).subscribe((responsedata: any) => {
-      console.log(filepath);
-    });
-    return;
-  }
 
-  // Below function is not used for upload
 }

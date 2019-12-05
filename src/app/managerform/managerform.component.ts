@@ -53,7 +53,6 @@ export class ManagerComponent implements OnInit {
         this.user.push(new User(j['firstname'],j['lastname'],j['email'],j['position'], j['file'], j['show']));
       }
     }
-      // this.user = this.userslist;
     });
   }
 
@@ -67,6 +66,7 @@ export class ManagerComponent implements OnInit {
     this.selectionOptions = { type: 'Single' };
   }
 
+  // login validation for managers is done by calling authentication function of service.ts file
    login(loginform: NgForm) {
     // alert('Login clicked');
     const mgr: Manager = {
@@ -82,10 +82,10 @@ export class ManagerComponent implements OnInit {
       alert('Invalid credentials! Kindly enter correct Username and Password');
       this.invalid = true;
       loginform.reset();
-      // window.location.reload();
     }
     return;
 }
+// usernames na dpasswords of managers are retrieved into a list for authentication
   managerList() {
     this.managerformservice.getManagers().subscribe((data: {}) => {
       console.log(data);
@@ -93,6 +93,7 @@ export class ManagerComponent implements OnInit {
     });
   }
 
+  // soft delete of user is done by calling service.ts function over here
   deletegrid(): void {
       const selectedRow: number = this.grid.getSelectedRowIndexes()[0];
       // console.log(selectedRow);
@@ -105,6 +106,7 @@ export class ManagerComponent implements OnInit {
       }
       this.grid.refresh();
   }
+  // log out function.
   logout() {
       window.location.reload();
     }

@@ -35,93 +35,15 @@
             </div>
         </div>
         <div class="form-group">
-            <button type="button" class="btn btn-info btn-block" (click)="userList()">List</button>
-        </div>
-        <div class="form-group">
             <button type="submit" [disabled]='userForm.invalid' value="submit" class="btn btn-primary btn-block" name="submit">Submit</button><br>
             <div class="alert alert-success" *ngIf="submitmessage">
                 {{submitmessage}}
             </div>
         </div>
     </form>
-    <!-- <form #userForm="ngForm" class="login-form" action="/api/uploadfile" (ngSubmit) = "onSubmit(userForm)" enctype="multipart/form-data" method = "post" >
-        <table style="margin-left:auto;margin-right:auto;">
-            <tr>
-              <td>First Name:</td>
-              <td>
-                <input type="text"  name = "firstname" ngModel required />
-              </td>
-            </tr><br>
-            <tr>
-                <td>Last Name:</td>
-                <td>
-                  <input type="text" name = "lastname" ngModel required />
-                </td>
-              </tr><br>
-            <tr>
-              <td>E-mail address</td>
-              <td><input type="email" name = "email" ngModel required /></td>
-            </tr><br>
-            <tr>
-                <td>Position:</td>
-                <td>
-                  <select name="position" ngModel required>
-                  <option *ngFor="let position of positions">{{position}}</option>
-                  </select>
-                </td>
-            </tr><br>
-            <tr>
-                <td>Resume:</td>
-                <td>
-                    <input type = "file" name = "file" accept=".pdf,.doc,.docx" (change)="selectfile($event)" ngModel required/>
-                </td>
-            </tr><br>
-          </table>
-          <br>
-          <button type="button"  (click)="onUpload(userForm)">Upload</button><br>
-          {{uploadmessage}}
-          <br>
-          <button type="button" (click)="userList()">List</button><br>
-          <br>
-          <P><button type="submit" [disabled]='userForm.invalid' value="submit" name="submit">Submit</button></P>
-          {{submitmessage}}
-  </form> -->
     <p [hidden]='!userForm.invalid' class="alert alert-danger" role="alert" style='color: red;'>Please Fill all the details</p>
 
-    <div [hidden] = '!list'>
-      <table *ngFor = "let user of userslist"  style="border: solid 2px red;">
-        <tr>
-          <td>
-            <div>{{user.firstname}}</div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div>{{user.lastname}}</div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div>{{user.email}}</div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div>{{user.position}}</div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div>{{user.file}}</div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div>{{user.show}}</div>
-          </td>
-        </tr>
-      </table>
-    </div>
+
   </div>
 </body>
 </html>
